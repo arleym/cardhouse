@@ -1,0 +1,20 @@
+{
+  "name": "Cardhouse",
+  "version": "1.0.0",
+  "author": {
+    "name": "Arley McBlain",
+    "email": "arley@mcblain.ca"
+  },
+  "engine": "node >= 4.4.0",
+  "devDependencies": {
+    "browser-sync": "^2.18.8",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^3.2.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-uglify": "^2.1.2",
+    "pump": "^1.0.2"
+  }
+}

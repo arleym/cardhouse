@@ -1,0 +1,7 @@
+.DS_Store
+
+# Front-end
+.sass-cache
+bower_components
+node_modules
+dist
