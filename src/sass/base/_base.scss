@@ -1,0 +1,29 @@
+/*
+ * Base styles & resets
+ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html,
+body {
+  height: 100%;
+}
+
+::selection {
+  background: var(--primary);
+  color: white;
+}
+
+// img[width],  // WordPress specific fix
+// img[height], // WordPress specific fix
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+iframe {
+  display: block;
+  width: 100%;
+  margin: auto;
+  min-height: 15em;
+}

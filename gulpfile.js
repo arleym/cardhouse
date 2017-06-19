@@ -1,12 +1,15 @@
 // https://www.sitepoint.com/simple-gulpy-workflow-sass/
 var gulp = require('gulp');
 var browserSync = require('browser-sync').create();
+
+// Media
+var imginput = 'src/img/**'
 const imagemin = require('gulp-imagemin');
 
 // Sass
 var sass = require('gulp-sass');
   var cssinput = './src/sass/**/*.scss';
-  var output = './dist/css'; // WP needs a root style.css for themes to work
+  var cssoutput = './dist/css';
   var autoprefixer = require('gulp-autoprefixer');
   var autoprefixerOptions = {
     browsers: ['last 2 versions', '> 5%', 'Firefox ESR']
@@ -17,9 +20,10 @@ var sass = require('gulp-sass');
   };
 
 // JS
-var uglify = require('gulp-uglify');
-  var jsinput = './src/js/**/*.js';
-  var pump = require('pump');
+var jsinput = ['node_modules/jquery/dist/jquery.min.js', './src/js/**/*.js'];
+  var jsoutput = 'dist/js'
+  var uglify = require('gulp-uglify');
+  var rename = require('gulp-rename');
   var concat = require('gulp-concat');
 
 var sourcemaps = require('gulp-sourcemaps');
@@ -33,32 +37,28 @@ gulp.task('sass', function () {
     .pipe(sass(sassOptions).on('error', sass.logError))
     .pipe(sourcemaps.write())
     .pipe(autoprefixer())
-    .pipe(gulp.dest(output));
+    .pipe(gulp.dest(cssoutput));
 });
   gulp.task('sassmin', function () {
     return gulp
       .src(cssinput)
       .pipe(sass({ outputStyle: 'compressed' }))
       .pipe(autoprefixer(autoprefixerOptions))
-      .pipe(gulp.dest(output));
+      .pipe(gulp.dest(cssoutput));
   });
 
 gulp.task('js', function() {
-  // return gulp.src(['node_modules/jquery/dist/jquery.min.js', 'src/js/global.js'])
-  return gulp.src(['src/js/global.js'])
-    .pipe(sourcemaps.init())
-    .pipe(concat('global.js'))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('dist/js'));
+  return gulp.src(jsinput)
+    .pipe(concat('main.js'))
+    .pipe(gulp.dest(jsoutput));
 });
-  gulp.task('jsmin', function (cb) {
-    pump([
-        gulp.src('src/js/*.js'),
-        uglify(),
-        gulp.dest('dist/js')
-      ],
-      cb
-    );
+  gulp.task('jsmin', function () {
+    return gulp.src(jsinput)
+      .pipe(concat('main.js'))
+      .pipe(gulp.dest(jsoutput))
+      .pipe(rename('main.js'))
+      .pipe(uglify())
+      .pipe(gulp.dest(jsoutput));
   });
 
 gulp.task('img', () =>
@@ -69,6 +69,7 @@ gulp.task('img', () =>
 
 gulp.task('watch', function() {
   gulp.watch(jsinput, ['js'])
+  gulp.watch(imginput, ['img'])
   return gulp
     .watch(cssinput, ['sass'])
     .on('change', function(event) {
@@ -77,12 +78,13 @@ gulp.task('watch', function() {
 });
 
 gulp.task('browsersync', ['sass'], function() {
-  browserSync.init({ proxy: "localhost/vcc" });
+  browserSync.init({ server: {baseDir: "./"} });
   gulp.watch(cssinput, ['sass']).on('change', browserSync.reload);
   gulp.watch(jsinput, ['js']).on('change', browserSync.reload);
-  gulp.watch("*.php").on('change', browserSync.reload);
+  gulp.watch("*.html").on('change', browserSync.reload);
+  gulp.watch(imginput, ['img']).on('change', browserSync.reload);
 });
 
 
-gulp.task('dev', [ 'browsersync' ]);
+gulp.task('dev', [ 'sass', 'js', 'img', 'browsersync' ]);
 gulp.task('default', [ 'sassmin', 'img', 'jsmin' ]);

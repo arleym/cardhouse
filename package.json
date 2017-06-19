@@ -12,9 +12,10 @@
     "gulp-autoprefixer": "^4.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-imagemin": "^3.2.0",
+    "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.0",
     "gulp-uglify": "^2.1.2",
-    "pump": "^1.0.2"
+    "jquery": "^3.2.1"
   }
 }
