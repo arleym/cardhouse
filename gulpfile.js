@@ -1,4 +1,4 @@
-// https://www.sitepoint.com/simple-gulpy-workflow-sass/
+// Card House Runner
 var gulp = require('gulp');
 var browserSync = require('browser-sync').create();
 

@@ -26,6 +26,7 @@
   width: 100%;
   float: left;
 }
+
 @media (min-width: 31.3125em) {
   .l-column--medium-2 { width: 16.6666666666%; }
   .l-column--medium-3 { width: 25%; }
@@ -43,4 +44,4 @@
   .l-column--large-fifth { width: 20%; }
 }
 
-.l-row.display--flex {flex-wrap: wrap; }
+.l-row.display--flex { flex-wrap: wrap; }
