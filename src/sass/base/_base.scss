@@ -4,7 +4,10 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html, body { height: 100%; }
+body {
+  font-family: $default-font;
+  margin: 0;
+}
 
 ::selection {
   background: var(--primary);
