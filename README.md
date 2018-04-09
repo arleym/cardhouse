@@ -1,7 +1,7 @@
 
 # Cardhouse
 
-A simple project boilerplate to build upon.
+A simple personal project boilerplate I use for personal apps, prototypes, and starting projects. Uses Scss, jQuery, Gulp.
 
 ## Setup
 
